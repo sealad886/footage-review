@@ -1,0 +1,20 @@
+.DS_Store
+.build/
+.swiftpm/
+dist/
+.integration-backups/
+.migration-backups/
+.venv/
+.env
+*.sqlite3
+*.sqlite3-*
+*.log
+Footage Review Library/
+Crops/
+
+# Include native model types despite broad user-level models/ ignore rules.
+!/Sources/FootageReview/Models/
+!/Sources/FootageReview/Models/*.swift
+
+# Version.env contains public application metadata, not credentials.
+!/Version.env

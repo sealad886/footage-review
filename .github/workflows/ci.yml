@@ -1,0 +1,39 @@
+name: Native app checks
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: native-checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  macos:
+    runs-on: macos-26
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          submodules: recursive
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@68559e99cc807c1eb7e9238fd43a15bba460eec2 # v10.3.3
+        with:
+          version: '0.13.7'
+          enable-cache: true
+          cache-dependency-glob: External/cluster-grouper/backend/uv.lock
+      - name: Verify source metadata
+        run: ./script/check.sh --metadata
+      - name: Prepare locked backend and verified models
+        run: ./script/setup.sh
+      - name: Test native settings, contracts and managed recovery
+        run: ./script/check.sh
+      - name: Build local app bundle
+        run: ./script/build_and_run.sh --build-only
+      - name: Verify built metadata and signature
+        run: ./script/check.sh --bundle
