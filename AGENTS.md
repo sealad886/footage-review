@@ -32,3 +32,11 @@ Use `./script/build_and_run.sh` to build and open the native app. It owns bundle
 - Settings/contract tests are always local. Managed recovery tests need the prepared backend and models; the positive model/import test additionally needs explicitly supplied public-sample assets.
 
 The app is a source-checkout build. Its default clustering backend path comes from the generated bundle metadata or SwiftPM source-root fallback. Keep the checkout available and rebuild after moving it.
+
+## Issues and pull requests
+
+Create and resolve issues to coordinate work across chats and teams. A pull request can stand on its own. Link and resolve related issues when applicable. When creating a GitHub issue, set the applicable available issue fields. When planning from an issue, review its fields, description, and comments.
+
+## Code search
+
+Run `codanna mcp -h` to find the indexed code and documentation search interface.
